@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+*.log
+
+# Environment variables
+config/.env
+
+# Ignore downloaded assets and raw data
+assets/*
+!assets/.gitkeep
+data/*
+!data/.gitkeep
+
+# Ignore output text files
+*.txt
+!requirements.txt
+temp_out.txt
+result_gemini.txt
