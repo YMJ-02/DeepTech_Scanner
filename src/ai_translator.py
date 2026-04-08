@@ -55,7 +55,7 @@ def generate_social_post(article):
         content = f"Title: {article.get('title')}\nSource: {article.get('summary')}\nLink: {article.get('link')}"
         
         response = client.models.generate_content(
-            model='gemini-2.0-flash',
+            model='gemini-2.5-flash',
             contents=[SYSTEM_PROMPT.strip(), content]
         )
         
@@ -89,7 +89,7 @@ def shorten_social_post(text):
     """
     try:
         response = client.models.generate_content(
-            model='gemini-2.0-flash',
+            model='gemini-2.5-flash',
             contents=[prompt.strip(), text]
         )
         return response.text.strip()
