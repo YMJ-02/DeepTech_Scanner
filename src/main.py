@@ -8,9 +8,7 @@ import sys
 if sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
-import time
 import os
-import schedule
 from datetime import datetime
 
 # Import modules from src
@@ -126,30 +124,11 @@ def run_bot_job():
     print("\nWorkflow completed successfully for the current iteration.")
 
 
-def start_scheduler():
-    """
-    Schedules the bot to run at specific intervals.
-    """
-    print("Initializing DeepTech Bot Scheduler...")
-    
-    # Schedule to run at US EST commute times (Assuming server is in KST, UTC+9)
-    # 07:00 KST = 17:00 EST (5:00 PM evening commute)
-    # 22:00 KST = 08:00 EST (8:00 AM morning commute)
-    schedule.every().day.at("07:00").do(run_bot_job)
-    schedule.every().day.at("22:00").do(run_bot_job)
-    
-    print("Scheduler running. Press Ctrl+C to exit.")
-    try:
-        while True:
-            schedule.run_pending()
-            time.sleep(60)
-    except KeyboardInterrupt:
-        print("\nBot stopped by user.")
-
 if __name__ == "__main__":
     # Ensure necessary directories exist
     os.makedirs(os.path.join(os.path.dirname(os.path.dirname(__file__)), "data"), exist_ok=True)
     os.makedirs(os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets"), exist_ok=True)
     os.makedirs(os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs"), exist_ok=True)
     
-    start_scheduler()
+    # GitHub Actions will handle scheduling, so just run once
+    run_bot_job()
